@@ -1,10 +1,541 @@
+﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>BT-Games</title>
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BT-Games - Mobile Game Studio</title>
+  <meta name="description"
+    content="BT-Games is an indie mobile game studio creating fun puzzle, casual and strategy games for Android.">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(6px);
+    }
+
+    nav .inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .brand {
+      color: #FFD700;
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 22px;
+    }
+
+    nav ul a {
+      color: #CBD5E1;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    nav ul a:hover {
+      color: #fff;
+    }
+
+    header.hero {
+      background: linear-gradient(135deg, #4A0E4E 0%, #0D1B2A 100%);
+      color: white;
+      padding: 90px 20px;
+      text-align: center;
+    }
+
+    header.hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      color: #FFD700;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    header.hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 30px auto;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #00E676;
+      color: #000;
+      font-weight: bold;
+      padding: 14px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background-color: #00C853;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 20px 10px;
+    }
+
+    section h2 {
+      color: #1E293B;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      border-bottom: 3px solid #6366F1;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .lead {
+      color: #64748B;
+      margin: 12px 0 28px;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .game {
+      background: white;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .game .top {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .game .icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #6366F1, #4A0E4E);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      object-fit: cover;
+    }
+
+    .game h3 {
+      font-size: 1.05rem;
+      color: #0F172A;
+      line-height: 1.3;
+    }
+
+    .game .tag {
+      font-size: 0.8rem;
+      color: #6366F1;
+      font-weight: 600;
+    }
+
+    .game p {
+      font-size: 0.93rem;
+      color: #475569;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+
+    .game .links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .game .links a {
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
+
+    .game .play {
+      background: #00E676;
+      color: #000;
+    }
+
+    .game .play:hover {
+      background: #00C853;
+    }
+
+    .game .ios {
+      background: #0F172A;
+      color: #fff;
+    }
+
+    .game .ios:hover {
+      background: #1E293B;
+    }
+
+    .game .more {
+      background: #F1F5F9;
+      color: #334155;
+    }
+
+    .game .more:hover {
+      background: #E2E8F0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-item {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-item h3 {
+      font-size: 1rem;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+
+    .feature-item p {
+      font-size: 0.93rem;
+      color: #475569;
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .contact-card a.mail {
+      color: #6366F1;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+
+    .contact-card a.mail:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      padding: 30px 20px;
+      background: #0F172A;
+      color: #94A3B8;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #38BDF8;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      header.hero h1 {
+        font-size: 2.2rem;
+      }
+
+      nav ul {
+        gap: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="inner">
+      <a class="brand" href="#">BT-Games</a>
+      <ul>
+        <li><a href="#games">Games</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
     <h1>BT-Games Studio</h1>
-    Please contact us at <a href="mailto:contact.btgames@gmail.com">contact.btgames@gmail.com</a>.
-  </body>
+    <p>We build fun, polished puzzle, casual and strategy games for Android, played by thousands of players worldwide.
+    </p>
+    <a class="btn" href="https://play.google.com/store/apps/dev?id=7542875420707495067" target="_blank"
+      rel="noopener">View on Google Play</a>
+    <a class="btn" style="background:#fff;margin-left:10px"
+      href="https://apps.apple.com/us/developer/hoang-pham/id1585400800" target="_blank" rel="noopener">View on App
+      Store</a>
+  </header>
+
+  <section id="games">
+    <h2>Our Games</h2>
+    <p class="lead">Free to download on Google Play and the App Store.</p>
+
+    <div class="games">
+
+      <article class="game">
+        <div class="top">
+          <img class="icon"
+            src="https://play-lh.googleusercontent.com/dAJWwqHCLI5F7qkxc2ZfVb4vxapCWr4nktOzFjjBNeDCl8tvT9WmzPOGElyfxsjhqHkYj6bYY_S5eyKT5_Rq=s256"
+            alt="Tile Match: Animal Link Puzzle icon" loading="lazy">
+          <div>
+            <h3>Tile Match: Animal Link Puzzle</h3>
+            <span class="tag">Puzzle · ★ 4.9</span>
+          </div>
+        </div>
+        <p>Link matching animal tiles and clear the board in this relaxing tile puzzle.</p>
+        <div class="links">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.btgames.tile.match.animal"
+            target="_blank" rel="noopener">Google Play</a>
+          <a class="ios" href="https://apps.apple.com/us/app/tile-match-animal-link-puzzle/id1588492026" target="_blank"
+            rel="noopener">App Store</a>
+          <a class="more" href="tile-match-animal.html">Details</a>
+        </div>
+      </article>
+
+      <article class="game">
+        <div class="top">
+          <img class="icon"
+            src="https://play-lh.googleusercontent.com/1Dj3aV5_mZLiZExm4wbDLmfvhxNErOls8bdE8ZVal7IPdRaOD0Zf76mRyBlQkC5e1VFgvZPH6-QusAeSJgjJ=s256"
+            alt="Onet Star: Tile Match Puzzle icon" loading="lazy">
+          <div>
+            <h3>Onet Star: Tile Match Puzzle</h3>
+            <span class="tag">Puzzle · ★ 4.7</span>
+          </div>
+        </div>
+        <p>Pair up stars and tiles in a classic Onet-style connect puzzle.</p>
+        <div class="links">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.btgames.onet.stars" target="_blank"
+            rel="noopener">Google Play</a>
+          <a class="ios" href="https://apps.apple.com/us/app/onet-star-tile-match-puzzle/id1588491120" target="_blank"
+            rel="noopener">App Store</a>
+          <a class="more" href="onet-star.html">Details</a>
+        </div>
+      </article>
+
+      <article class="game">
+        <div class="top">
+          <img class="icon"
+            src="https://play-lh.googleusercontent.com/iHwCUYwmeCvZLD9wOf5ysIQGLSYQbr414SH90hO3X6Dk27g_DSE0C3n8AZrRX7P7nkT5Qp_N6CqdFiiE1X3Lvw=s256"
+            alt="Onet Animal: Tile Match Puzzle icon" loading="lazy">
+          <div>
+            <h3>Onet Animal: Tile Match Puzzle</h3>
+            <span class="tag">Puzzle · ★ 4.4</span>
+          </div>
+        </div>
+        <p>Collect animal tiles and pair match to challenge yourself in the Onet game!</p>
+        <div class="links">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.btgames.onet.animals" target="_blank"
+            rel="noopener">Google Play</a>
+          <a class="ios" href="https://apps.apple.com/us/app/onet-animal-tile-match-puzzle/id1585400798" target="_blank"
+            rel="noopener">App Store</a>
+          <a class="more" href="onet-animal.html">Details</a>
+        </div>
+      </article>
+
+      <article class="game">
+        <div class="top">
+          <img class="icon"
+            src="https://play-lh.googleusercontent.com/k2t7-xQFG1IBIob6_4AcMV8EgNH6DM3pvoNOlZ4CAgEm7eXFTDbefv3HfuNjYtPjrkte6s9z-sAsRCrK7ajP=s256"
+            alt="Conquer the State: Animal War icon" loading="lazy">
+          <div>
+            <h3>Conquer the State: Animal War</h3>
+            <span class="tag">Strategy · ★ 4.2</span>
+          </div>
+        </div>
+        <p>Lead your animal army and conquer every state in this strategy game.</p>
+        <div class="links">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.btgames.animal.war.conquer.the.state"
+            target="_blank" rel="noopener">Google Play</a>
+          <a class="ios" href="https://apps.apple.com/us/app/conquer-the-state-animal-war/id6464317635" target="_blank"
+            rel="noopener">App Store</a>
+          <a class="more" href="animal-war.html">Details</a>
+        </div>
+      </article>
+
+      <article class="game">
+        <div class="top">
+          <img class="icon"
+            src="https://play-lh.googleusercontent.com/s7YTOuLom19RlWiHuSBe2jJgPIi0P8wUCmmL4OWVd7oZV_NRZ_OCG4r1buhxv77eJcBs1gBQ3rmFRtnE6Ei4fA=s256"
+            alt="Idle Army Game: Clan Conquest icon" loading="lazy">
+          <div>
+            <h3>Idle Army Game: Clan Conquest</h3>
+            <span class="tag">Idle · Strategy</span>
+          </div>
+        </div>
+        <p>Build and upgrade your clan's army and conquer rivals, even while you're away.</p>
+        <div class="links">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.btgames.idle.army.clan.conquest"
+            target="_blank" rel="noopener">Google Play</a>
+          <a class="ios" href="https://apps.apple.com/us/app/idle-army-game-clan-conquest/id6739977984" target="_blank"
+            rel="noopener">App Store</a>
+          <a class="more" href="idle-army.html">Details</a>
+        </div>
+      </article>
+
+      <article class="game">
+        <div class="top">
+          <img class="icon"
+            src="https://play-lh.googleusercontent.com/mSCkG8bEu3MN-SQzMTLJb1c0va0Eu-Bw_9bzxYn1410dX0cxZEQGmFWGkz5jIVgPRTLGvS8h8ercusPIWmXz=s256"
+            alt="Block Escape: Melon Blaster icon" loading="lazy">
+          <div>
+            <h3>Block Escape: Melon Blaster</h3>
+            <span class="tag">Puzzle · Casual</span>
+          </div>
+        </div>
+        <p>Slide, blast and clear blocks to escape in this satisfying casual puzzle.</p>
+        <div class="links">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.btgames.block.escape" target="_blank"
+            rel="noopener">Google Play</a>
+          <a class="more" href="block-escape.html">Details</a>
+        </div>
+      </article>
+
+      <article class="game">
+        <div class="top">
+          <div class="icon" aria-hidden="true">🧠</div>
+          <div>
+            <h3>Dradoku: Brain Puzzle Game</h3>
+            <span class="tag">Puzzle · Brain</span>
+          </div>
+        </div>
+        <p>Train your mind with number puzzles.</p>
+        <div class="links">
+          <a class="play" href="https://play.google.com/store/apps/details?id=com.btgames.dradoku.brain.puzzle.game"
+            target="_blank" rel="noopener">Google Play</a>
+          <a class="more" href="dradoku.html">Details</a>
+        </div>
+      </article>
+
+      <article class="game">
+        <div class="top">
+          <img class="icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/71/50/91/71509179-e6af-db74-f563-70fc2c4e76f3/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg" alt="Helix Jump: Animal Rescue icon" loading="lazy">
+          <div>
+            <h3>Helix Jump: Animal Rescue</h3>
+            <span class="tag">Arcade · iOS</span>
+          </div>
+        </div>
+        <p>Guide the ball down the helix tower and rescue the animals.</p>
+        <div class="links">
+          <a class="ios" href="https://apps.apple.com/us/app/helix-jump-animal-rescue/id6449396672" target="_blank"
+            rel="noopener">App Store</a>
+          <a class="more" href="helix-jump.html">Details</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p class="lead">BT-Games is an independent studio focused on games that are easy to pick up and hard to put down.
+    </p>
+    <div class="about-grid">
+      <div class="feature-item">
+        <h3>🎮 Fun First</h3>
+        <p>Simple controls and satisfying gameplay for players of all ages.</p>
+      </div>
+      <div class="feature-item">
+        <h3>🔒 Privacy Aware</h3>
+        <p>Every game has a published privacy policy. See the links below.</p>
+      </div>
+      <div class="feature-item">
+        <h3>🚀 Regular Updates</h3>
+        <p>We keep improving our games based on player feedback.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="lead">Questions, feedback, bug reports or business inquiries? We'd love to hear from you.</p>
+    <div class="contact-card">
+      <div>
+        <strong>Email</strong><br>
+        <a class="mail" href="mailto:contact.btgames@gmail.com">contact.btgames@gmail.com</a>
+      </div>
+      <a class="btn" href="mailto:contact.btgames@gmail.com">Send us a message</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Privacy policies:
+      <a href="privacy/tile-match-animal.html">Tile Match</a> ·
+      <a href="privacy/onet-star.html">Onet Star</a> ·
+      <a href="privacy/onet-animal.html">Onet Animal</a> ·
+      <a href="privacy/animal-war.html">Animal War</a> ·
+      <a href="privacy/idle-army.html">Idle Army</a> ·
+      <a href="privacy/block-escape.html">Block Escape</a> ·
+      <a href="privacy/dradoku.html">Dradoku</a> ·
+      <a href="privacy/helix-jump.html">Helix Jump</a>
+    </p>
+    <p style="margin-top:10px">&copy; 2020 BT-Games. All rights reserved.</p>
+  </footer>
+
+</body>
+
 </html>
